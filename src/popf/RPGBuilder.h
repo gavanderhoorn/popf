@@ -46,7 +46,9 @@ using std::map;
 #include "ptree.h"
 
 #include <assert.h>
+#ifndef __clang__
 #include <values.h>
+#endif
 #include <math.h>
 
 using namespace Inst;
