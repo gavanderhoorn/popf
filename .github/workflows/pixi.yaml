@@ -1,0 +1,26 @@
+name: pixi-humble-clang
+
+on:
+  pull_request:
+    branches:
+      - humble-devel-clang
+  push:
+    branches:
+      - humble-devel-clang
+
+jobs:
+  default:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    name: default ${{ matrix.cache == true && 'with' || 'without' }} cache (${{ matrix.os }})
+    steps:
+    - uses: actions/checkout@v7
+    - uses: prefix-dev/setup-pixi@v0.9.6
+      with:
+        pixi-version: v0.71.1
+        cache: false
+    - run: |
+        colcon build --packages-up-to=popf --merge-install --event-handlers parallel_status- console_cohesion+ summary+ --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTING=OFF -GNinja
+      shell: pixi run bash -e {0}
