@@ -23,5 +23,5 @@ jobs:
         pixi-version: v0.71.1
         cache: ${{ matrix.cache }}
     - run: |
-        colcon build --packages-up-to=popf --merge-install --event-handlers parallel_status- console_direct+ summary+ --cmake-args -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTING=OFF -GNinja
+        colcon build --packages-up-to=popf --merge-install --event-handlers parallel_status- console_direct+ summary+ --cmake-args -DCMAKE_VERBOSE_MAKEFILE=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTING=OFF -GNinja
       shell: pixi run bash -e {0}

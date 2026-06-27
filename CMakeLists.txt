@@ -93,9 +93,11 @@ set(libParsePDDL_SRCS
 )
 
 add_library(VALGlobals SHARED ${val_SOURCE_DIR}/VALGlobals.cpp)
+target_compile_options(VALGlobals PRIVATE -Wno-deprecated-declarations)
 
 add_library(ParsePDDL SHARED ${libParsePDDL_SRCS})
 target_link_libraries(ParsePDDL PRIVATE VALGlobals ${FLEX_LIBRARIES})
+target_compile_options(ParsePDDL PRIVATE -Wno-deprecated-declarations)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 set_target_properties(ParsePDDL PROPERTIES LINK_FLAGS "-Wl,-undefined,error")
 target_compile_definitions(ParsePDDL PRIVATE _LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
@@ -118,6 +120,7 @@ set(libInst_SRCS
 
 add_library(Inst SHARED ${libInst_SRCS})
 target_link_libraries(Inst ParsePDDL)
+target_compile_options(Inst PRIVATE -Wno-deprecated-declarations)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 set_target_properties(Inst PROPERTIES LINK_FLAGS "-Wl,-undefined,error")
 target_compile_definitions(Inst PRIVATE _LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
@@ -147,6 +150,7 @@ set(validate_SRCS
      ${val_SOURCE_DIR}/PrettyPrinter.cpp)
      
 add_executable(validate ${validate_SRCS})
+target_compile_options(validate PRIVATE -Wno-deprecated-declarations)
 
 target_link_libraries(validate
   ParsePDDL
@@ -158,6 +162,7 @@ set(parser_SRCS
 )
 
 add_executable(parser ${parser_SRCS})
+target_compile_options(parser PRIVATE -Wno-deprecated-declarations)
 
 target_link_libraries(parser
   ParsePDDL
@@ -197,6 +202,7 @@ target_link_libraries(popfCommon
   ${CBC_LIBRARY} ${CGL_LIBRARIES} ${CLP_LIBRARIES} ${COINUTILS_LIBRARIES}
   ${OSICLP_LIBRARIES} ${OSI_LIBRARIES} ${OSICBC_LIBRARY}
 )
+target_compile_options(popfCommon PRIVATE -Wno-deprecated-declarations)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 set_target_properties(popfCommon PROPERTIES LINK_FLAGS "-Wl,-undefined,error")
 target_compile_definitions(popfCommon PRIVATE _LIBCPP_ENABLE_CXX17_REMOVED_UNARY_BINARY_FUNCTION)
@@ -211,6 +217,7 @@ install(TARGETS popfCommon ParsePDDL Inst
 )
 
 ADD_EXECUTABLE(popf ${popf_SOURCE_DIR}/popfMain.cpp)
+target_compile_options(popf PRIVATE -Wno-deprecated-declarations)
 target_link_libraries(popf
   popfCommon
   ${CBC_LIBRARY} ${CGL_LIBRARIES} ${CLP_LIBRARIES}  ${COINUTILS_LIBRARIES}
