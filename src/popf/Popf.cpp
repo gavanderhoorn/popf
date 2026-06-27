@@ -57,6 +57,7 @@
 #include <sys/times.h>
 #include <sys/time.h>
 #include <sys/unistd.h>
+#include <unistd.h> //  This works  DRJ
 
 #include <sstream>
 
